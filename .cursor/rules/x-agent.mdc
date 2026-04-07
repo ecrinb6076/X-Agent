@@ -1,0 +1,89 @@
+# X Agent — Routing Rules
+
+This project is an X/Twitter agent with two backends:
+
+## Architecture
+
+| Operation | Backend | Why |
+|-----------|---------|-----|
+| **Read / Search** | `twitter-cli` (Agent Reach) | Free, cookie-based, no API costs |
+| **Write** (tweet, retweet, DM, like, follow, bookmark, etc.) | xmcp MCP server | Official X API, safe for automation |
+
+## Read Operations → twitter-cli
+
+Use shell commands. Already authenticated as @kevskgs.
+
+```bash
+# Search tweets
+twitter search "query" -n 10
+
+# Read a tweet + replies
+twitter tweet URL_OR_ID
+
+# Home timeline
+twitter feed -n 20
+
+# User profile
+twitter user @username
+
+# User's tweets
+twitter user-posts @username -n 20
+
+# Read an X Article / long-form post
+twitter article URL_OR_ID
+
+# Liked tweets
+twitter likes
+
+# Bookmarks
+twitter bookmarks
+```
+
+For structured output (better for parsing), append `--yaml` or `--json`.
+
+## Write Operations → xmcp MCP server
+
+Use the `x-api` MCP server. The server must be running (`./start-xmcp.sh`).
+
+Available write tools via MCP:
+- `createPosts` — compose and publish a tweet
+- `repostPost` / `unrepostPost` — retweet / undo retweet
+- `likePost` / `unlikePost` — like / unlike
+- `createDirectMessagesByParticipantId` — send a DM to a user
+- `createDirectMessagesByConversationId` — reply in a DM conversation
+- `createDirectMessagesConversation` — start a new DM conversation
+- `followUser` / `unfollowUser` — follow / unfollow
+- `muteUser` / `unmuteUser` — mute / unmute
+- `deletePosts` — delete a tweet
+- `hidePostsReply` — hide a reply
+- `createUsersBookmark` / `deleteUsersBookmark` — bookmark management
+
+Available read tools via MCP (use these when twitter-cli doesn't cover it):
+- `searchPostsRecent` — search recent posts (API-grade, more reliable than CLI)
+- `getPostsById` — get specific posts by ID
+- `getUsersMe` — get authenticated user info
+- `getUsersByUsername` / `getUsersById` — user lookup
+- `getUsersFollowers` / `getUsersFollowing` — follower/following lists
+- `getUsersPosts` / `getUsersTimeline` / `getUsersMentions` — user timelines
+- `getUsersBookmarks` — list bookmarks
+- `getUsersLikedPosts` — user's liked posts
+- `getPostsLikingUsers` — who liked a post
+- `getPostsRepostedBy` — who reposted
+- `getPostsQuotedPosts` — quote tweets of a post
+- `searchUsers` — search for users
+- `getTrendsByWoeid` — trending topics (WOEID 1 = worldwide, 23424977 = US)
+- `getDirectMessagesEvents` — read DM history
+
+## Routing Priority
+
+1. For reads/search: prefer `twitter-cli` (free) unless it fails or the specific endpoint isn't available
+2. For writes: always use the xmcp MCP server
+3. For DM reads: use xmcp (twitter-cli doesn't support DMs)
+4. For trending topics: use xmcp `getTrendsByWoeid`
+
+## Setup Checklist
+
+- [x] twitter-cli installed and authenticated (@kevskgs)
+- [ ] xmcp credentials configured in `xmcp/.env`
+- [ ] xmcp server started with `./start-xmcp.sh`
+- [ ] OAuth1 browser consent completed on first run
